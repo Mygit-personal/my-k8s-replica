@@ -9,8 +9,8 @@ metadata:
   annotations:
     myecr: "984912521466.dkr.ecr.ap-south-1.amazonaws.com/dev/red-app"
 spec:
-  minReadySeconds: 5s
-  replica: 4
+  minReadySeconds: 5
+  replicas: 4
   selector:
     matchLabels: 
       app: red-app-pods
@@ -40,9 +40,9 @@ spec:
                 - echo This is by using replica
                 - touch replicafile
           resources:
-            request:
-              cpu: 100M
+            requests:
+              cpu: 100m
               memory: 150Mi
             limits:
-              cpu: 200M
+              cpu: 200m
               memory: 200Mi
