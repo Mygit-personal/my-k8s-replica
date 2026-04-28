@@ -1,0 +1,10 @@
+apiVersion: v11
+kind: Service
+metadata: 
+  name: svc-rp
+spec:
+  type: LoadBalancer
+  selector:
+    app: red-app
+  ports:
+    - port: 80
