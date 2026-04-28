@@ -5,7 +5,7 @@ metadata:
   labels: 
     app: red-app
     env: dev
-  namespace: dev
+  namespace: devnamespace
   annotations:
     myecr: "984912521466.dkr.ecr.ap-south-1.amazonaws.com/dev/red-app"
 spec:
