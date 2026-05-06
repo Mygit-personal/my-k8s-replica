@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rp-pod
+  labels:
+    app: greenapp
+    env: dev
+  namespace: devnamespace
+  annotations: 
+    myecrimage: "984912521466.dkr.ecr.ap-south-1.amazonaws.com/dev/app/greenpage"
+spec:
+  minReadySeconds: "6s"
+  replicas: 5
+  selector:
+    matchlabels:
+      app: greenapp-pod 
+  template:
+    metadata: 
+      name: rp-pod-level
+      labels:
+        app: greenapp-pod
+    spec:
+      containers:
+        - name: greenimageapp
+          image: "984912521466.dkr.ecr.ap-south-1.amazonaws.com/dev/app/greenpage:latest"
+          ports:
+            - name: greenapp-port
+              containerPort: 80
+              protocol: TCP
+          startupProbe:
+            httpGet:
+              path: "/site"
+              port: 80
+          livenessProbe:
+            tcpSocket:
+              port: 80
+          readinessProbe:
+            exec:
+              command:
+                - touch
+                - rp{1..5}.txt
+                - mkdir
+                - rp{1..10}
+                - echo hi
+          resources:
+            requests:
+              cpu: 100M
+              memory: 150Mi
+            limits:
+              cpu: 150M
+              memory: 200Mi
