@@ -9,10 +9,10 @@ metadata:
   annotations: 
     myecrimage: "984912521466.dkr.ecr.ap-south-1.amazonaws.com/dev/app/greenpage"
 spec:
-  minReadySeconds: "6s"
+  minReadySeconds: 6
   replicas: 5
   selector:
-    matchlabels:
+    matchLabels:
       app: greenapp-pod 
   template:
     metadata: 
@@ -37,11 +37,11 @@ spec:
           readinessProbe:
             exec:
               command:
-                - touch
-                - rp{1..5}.txt
-                - mkdir
-                - rp{1..10}
                 - echo hi
+                - touch
+                - rp.txt
+                - mkdir
+                - myrp
           resources:
             requests:
               cpu: 100M
